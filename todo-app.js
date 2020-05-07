@@ -1,18 +1,25 @@
 let taskList = []
 
+
+
 class Task {
-    constructor(name, dueDate, isDone) {
+    constructor(name, currdate, dueDate, isDone) {
         this.taskId = Date.now();
         this.name = name;
         this.dueDate = dueDate;
+        this.currdate = currdate;
         this.isDone = isDone;
     }
 
     toString() {
         let htmlText = '<li class="task" ><div>'
         htmlText += this.name
-        htmlText += ", " + this.dueDate.getDate() 
-                 + "/" + this.dueDate.getMonth();
+        htmlText += ", " + "Current Date : " + this.currdate.getDate() +
+                    "-" + this.currdate.getMonth() +
+                    "-" + this.currdate.getFullYear();
+        htmlText += ", " + "Due Date : "+ this.dueDate.getDate() +
+                    "-" + this.dueDate.getMonth() +
+                    "-" + this.dueDate.getFullYear();
         htmlText += '<input type="checkbox" name="isDone" id="isDone">'
         htmlText += '<button onclick="deleteTask(';
         htmlText += this.taskId;
@@ -66,7 +73,7 @@ function init() {
     // assign it to taskList
     // render
 
-    task = new Task("welcome task", new Date("May 30, 2020"), false);
+    task = new Task("welcome task", new Date ("June 7, 2020"), new Date("July 7 , 2020"), false);
     addTask(task);
     console.log(task);
 }
