@@ -17,10 +17,9 @@ class Task {
         htmlText += ", " + "Current Date : " + this.currdate.getDate() +
                     "-" + this.currdate.getMonth() +
                     "-" + this.currdate.getFullYear();
-        htmlText += ", " + "Due Date : "+ this.dueDate.getDate() +
-                    "-" + this.dueDate.getMonth() +
-                    "-" + this.dueDate.getFullYear();
-        htmlText += '<input type="checkbox" name="isDone" id="isDone">'
+        htmlText += ", " + "Due Date : "+ this.dueDate;
+        
+        htmlText += '<input type="checkbox" onclick = "check()" name="isDone" id="isDone">'
         htmlText += '<button onclick="deleteTask(';
         htmlText += this.taskId;
         htmlText += ')">Delete</button>';
@@ -34,9 +33,20 @@ function render() {
     listUI.innerHTML = "";
     if (taskList.length === 0) listUI.innerHTML = "No tasks todo :-)"
     taskList.forEach((task) => {
+      
         listUI.innerHTML += task.toString();
     })
 }
+
+
+function check() {
+    const check = document.getElementById("idDone")
+    console.log("completed");
+    
+}
+    
+    
+
 
 function deleteTask(taskId) {
     taskList = taskList.filter(
@@ -49,18 +59,25 @@ function deleteTask(taskId) {
     
     // update the DOM
     render()
+   
     console.log(taskList);
 }
 
 function createTask() {
     const taskName = document.getElementById("taskName").value;
-    addTask(new Task(taskName, new Date(), false));
+    const date = document.getElementById("pickdate").value;
+
+    const done = document.getElementById("isDone").value;
+    console.log(done)
+
+    addTask(new Task(taskName, new Date(), date, false));
 }
 
 function addTask(t) {
     taskList.push(t)
     // call a web api to update the database on the server
     render();
+   
     console.log(taskList)
 }
 
